@@ -1,0 +1,4 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  com.example.httploger.init.HttpLogEnvironmentPostProcessor
+org.springframework.boot.diagnostics.AbstractFailureAnalyzer=\
+  com.example.httploger.init.HttpLogFailureAnalyzer
