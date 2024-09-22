@@ -32,9 +32,15 @@
    http-log.level=WARN
    ```
 
-5. Для проверки используйте тестовый ендпоинт: хост:порт/v1/rest/test
+5. Для проверки используйте тестовый контроллер: хост:порт/v1/rest/test
 
-   Пример: http://localhost:8080/v1/rest/test
+   GET http://localhost:8080/v1/rest/test
+
+   POST http://localhost:8080/v1/rest/test
+
+   DELETE http://localhost:8080/v1/rest/test/{id}
+   
+   
 
 ### Вывод логов:
 Логи будут выводиться в следующем формате:
