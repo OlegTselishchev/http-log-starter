@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>http-loger</artifactId>
+    <artifactId>http-logger-spring-boot-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>http-loger</name>
-    <description>http-loger</description>
+    <name>http-logger-spring-boot-starter</name>
+    <description>http-logger-spring-boot-starter</description>
     <url/>
     <licenses>
         <license/>
@@ -47,6 +47,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.1.0</version>
         </dependency>
 
         <dependency>

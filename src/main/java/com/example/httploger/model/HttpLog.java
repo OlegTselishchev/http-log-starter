@@ -1,9 +1,12 @@
 package com.example.httploger.model;
 
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import java.util.Map;
 
+@Setter
+@Getter
+@NoArgsConstructor
 @AllArgsConstructor
 public class HttpLog {
     private int status;
@@ -17,11 +20,13 @@ public class HttpLog {
     @Override
     public String toString() {
         return "\n" +
+                "-------------------------------------------" + "\n" +
                 "Status: " + status + "\n" +
                 "Method: " + method + "\n" +
                 "Url: " + url + "\n" +
                 "Work_Timestamp: " + workTimestamp + "\n" +
                 "Request_Header: " + requestHeader + "\n" +
-                "Response_Header: " + responseHeader;
+                "Response_Header: " + responseHeader + "\n" +
+                "-------------------------------------------";
     }
 }

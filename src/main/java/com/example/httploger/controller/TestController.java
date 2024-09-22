@@ -1,5 +1,6 @@
 package com.example.httploger.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,8 @@ public class TestController {
         storage.addAll(Arrays.asList("apple", "chery"));
     }
 
-    @GetMapping("/info")
+    @Operation(description = "Get item.")
+    @GetMapping("/test")
     public List<String> getInformation() {
         try {
             int timeout = ThreadLocalRandom.current().nextInt(3, 9);
@@ -35,7 +37,8 @@ public class TestController {
         }
     }
 
-    @PostMapping("/info")
+    @Operation(description = "Add item.")
+    @PostMapping("/test")
     public List<String> addInformation(@RequestBody String info) {
         try {
             int timeout = ThreadLocalRandom.current().nextInt(3, 9);
@@ -47,7 +50,8 @@ public class TestController {
         }
     }
 
-    @DeleteMapping("/info/{id}")
+    @Operation(description = "Delete item by id")
+    @DeleteMapping("/test/{id}")
     public List<String> deleteInformation(@PathVariable int id) {
         try {
             int timeout = ThreadLocalRandom.current().nextInt(3, 9);

@@ -6,31 +6,52 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Slf4j
 public class HttpLogEnvironmentPostProcessor implements EnvironmentPostProcessor {
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         log.info("Post processor environment");
-        String enablerProperty = environment.getProperty("http-log.enabled");
-        String levelProperty = environment.getProperty("http-log.level");
+        checkEnabledPropertyOrThrow(environment);
+        checkCachePropertyOrThrow(environment);
+        checkLevelPropertyOrThrow(environment);
+    }
 
-        if (enablerProperty == null) {
-            throw new HttpLogException("http-log.enabler не может быть null");
-        }
-        boolean isBoolean = Boolean.TRUE.toString().equalsIgnoreCase(enablerProperty)
-                || Boolean.FALSE.toString().equalsIgnoreCase(enablerProperty);
-        if (!isBoolean) {
-            throw new HttpLogException(String.format("Ошибка для http-log.enabled=%s, допустимое значение true/false ",
-                    enablerProperty));
-        }
-
-        if (levelProperty == null) {
-            throw new HttpLogException("http-log.level не может быть null");
-        }
-        boolean isLevel = levelProperty.equals("INFO") || levelProperty.equals("WARN");
-        if (!isLevel) {
-            throw new HttpLogException(String.format("Ошибка для http-log.level=%s, допустимое значение WARN/INFO",
-                    levelProperty));
+    private void checkLevelPropertyOrThrow(ConfigurableEnvironment environment) {
+        String enabledProperty = environment.getProperty("http-log.enabled");
+        if (enabledProperty != null) {
+            boolean isBoolean = Boolean.TRUE.toString().equalsIgnoreCase(enabledProperty)
+                    || Boolean.FALSE.toString().equalsIgnoreCase(enabledProperty);
+            if (!isBoolean) {
+                throw new HttpLogException(String.format("Ошибка для http-log.enabled=%s, допустимое значение true/false ",
+                        enabledProperty));
+            }
         }
     }
+
+    private void checkCachePropertyOrThrow(ConfigurableEnvironment environment) {
+        String cacheProperty = environment.getProperty("http-log.cache");
+        if (cacheProperty != null) {
+            boolean isBoolean = Boolean.TRUE.toString().equalsIgnoreCase(cacheProperty)
+                    || Boolean.FALSE.toString().equalsIgnoreCase(cacheProperty);
+            if (!isBoolean) {
+                throw new HttpLogException(String.format("Ошибка для http-log.cache=%s, допустимое значение true/false ",
+                        cacheProperty));
+            }
+        }
+    }
+
+    private void checkEnabledPropertyOrThrow(ConfigurableEnvironment environment) {
+        String levelProperty = environment.getProperty("http-log.level");
+        if (levelProperty != null) {
+            List<String> levels = Arrays.asList("INFO", "WARN", "DEBUG", "TRACE", "ERROR");
+            if (!levels.contains(levelProperty)) {
+                throw new HttpLogException(String.format("Ошибка для http-log.level = %s",
+                        levelProperty));
+            }
+        }
+    }
+
 }

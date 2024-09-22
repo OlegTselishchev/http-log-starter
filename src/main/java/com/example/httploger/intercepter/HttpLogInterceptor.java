@@ -2,7 +2,7 @@ package com.example.httploger.intercepter;
 
 import com.example.httploger.model.HttpLog;
 
-import com.example.httploger.server.HttpLogService;
+import com.example.httploger.server.operator.HttpLogOperator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,10 +17,10 @@ import java.util.Map;
 public class HttpLogInterceptor implements HandlerInterceptor {
     private static final String START_TIMESTAMP = "startTimestamp";
     private static final Logger log = LoggerFactory.getLogger(HttpLogInterceptor.class);
-    private HttpLogService httpLogService;
+    private final HttpLogOperator httpLogOperator;
 
-    public void setHttpLogService(HttpLogService httpLogService) {
-        this.httpLogService = httpLogService;
+    public HttpLogInterceptor(HttpLogOperator httpLogOperator) {
+        this.httpLogOperator = httpLogOperator;
     }
 
     @Override
@@ -44,11 +44,7 @@ public class HttpLogInterceptor implements HandlerInterceptor {
         Map<String, String> responseHeaders = getResponseHeaders(response);
         HttpLog httpLog = createHttpLog(status, method, url, workTimestamp, requestHeaders, responseHeaders);
 
-        if (status == 200) {
-            httpLogService.printHttpLog(httpLog);
-        } else {
-            log.error("HTTP-LOG: {}", httpLog);
-        }
+        httpLogOperator.logForLevel(httpLog);
     }
 
     private Map<String, String> getRequestHeaders(HttpServletRequest request) {
