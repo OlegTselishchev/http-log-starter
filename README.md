@@ -32,6 +32,10 @@
    http-log.level=WARN
    ```
 
+5. Для проверки используйте тестовый ендпоинт: хост:порт/v1/rest/test
+
+   Пример: http://localhost:8080/v1/rest/test
+
 ### Вывод логов:
 Логи будут выводиться в следующем формате:
    ```
@@ -45,10 +49,6 @@
    Response_Header: {Transfer-Encoding=chunked, Keep-Alive=timeout=60, Connection=keep-alive, Date=Sun, 22 Sep 2024 09:07:14 GMT, Content-Type=application/json}
    -------------------------------------------
    ```
-5. Для проверки используйте тестовый ендпоинт: хост:порт/v1/rest/test
-
-    Пример: http://localhost:8080/v1/rest/test
-
 
 6. Для просмотра текущих настроек используйте ендпоинт:
    http://localhost:8080/v1/rest/properties
@@ -65,7 +65,7 @@
 
    http://localhost:8080/v1/rest/level/error
 
-   http://localhost:8080/v1/rest/level/infodebug
+   http://localhost:8080/v1/rest/level/debug
 
 
 8. Стартер имеет ендпоинт для отключения логирования на рабочем приложении:
